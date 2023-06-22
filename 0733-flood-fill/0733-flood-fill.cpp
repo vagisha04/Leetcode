@@ -6,6 +6,10 @@ public:
         queue<pair<int,int>> q;
         vector<vector<int>> visited(m,vector<int>(n,0));
         int start = image[sr][sc];
+        if(start==color)
+        {
+return image;
+        }
         for(int i = 0;i<m;i++)
         {
 for(int j=0;j<n;j++)
