@@ -7,27 +7,19 @@ class Solution {
   public:
     // Function to detect cycle in an undirected graph.
     
-    bool detectCycle(int start, vector<int> adj[],int visited[])
+    bool detectCycle(int node,int parent, vector<int> adj[],int visited[])
     {
-        visited[start]=1;
-        queue<pair<int,int>> q;
-        q.push({start,-1});
-        while(!q.empty())
+        visited[node]=1;
+        for(auto i : adj[node])
         {
-            int node = q.front().first;
-            int parent= q.front().second;
-            q.pop();
-            for(auto nextNode: adj[node])
+            if(!visited[i])
             {
-                if(!visited[nextNode])
-                {
-                    visited[nextNode]=1;
-                    q.push({nextNode,node});
-                }
-                else if(parent!=nextNode)
-                {
-                    return true;
-                }
+                if(detectCycle(i,node,adj,visited))
+                return true;
+            }
+            else if(parent!=i)
+            {
+                return true;
             }
         }
         return false;
@@ -38,7 +30,7 @@ class Solution {
         for(int i=0;i<V;i++)
         {
             if(!visited[i]){
-            if(detectCycle(i,adj,visited))
+            if(detectCycle(i,-1,adj,visited))
             return true;
         }
         }
